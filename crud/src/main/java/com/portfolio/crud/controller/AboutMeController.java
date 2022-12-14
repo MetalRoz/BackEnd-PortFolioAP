@@ -64,11 +64,14 @@ public class AboutMeController {
             return new ResponseEntity(new Mensaje("La ocupación es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(aboutMeDto.getDescripcion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(aboutMeDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("La URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
 
         AboutMe aboutMe = aboutMeService.getOne(id).get();
         aboutMe.setNombre(aboutMeDto.getNombre());
         aboutMe.setOcupacion(aboutMeDto.getOcupacion());
         aboutMe.setDescripcion(aboutMeDto.getDescripcion());
+        aboutMe.setUrlimagen(aboutMeDto.getUrlimagen());
         aboutMeService.save(aboutMe);
         return new ResponseEntity(new Mensaje("Se ha actualizado existosamente"), HttpStatus.OK);
     }

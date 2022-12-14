@@ -14,14 +14,16 @@ public class AboutMe {
     private String nombre;
     private String ocupacion;
     private String descripcion;
+    private String urlimagen;
 
     public AboutMe() {
     }
 
-    public AboutMe(String nombre, String ocupacion, String descripcion) {
+    public AboutMe(String nombre, String ocupacion, String descripcion, String urlimagen) {
         this.nombre = nombre;
         this.ocupacion = ocupacion;
         this.descripcion = descripcion;
+        this.urlimagen = urlimagen;
     }
 
     public int getId() {
@@ -54,5 +56,13 @@ public class AboutMe {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 }

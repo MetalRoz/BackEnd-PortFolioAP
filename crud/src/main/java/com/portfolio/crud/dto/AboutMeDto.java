@@ -5,14 +5,16 @@ public class AboutMeDto {
     private String nombre;
     private String ocupacion;
     private String descripcion;
+    private String urlimagen;
 
     public AboutMeDto() {
     }
 
-    public AboutMeDto(String nombre, String ocupacion, String descripcion) {
+    public AboutMeDto(String nombre, String ocupacion, String descripcion, String urlimagen) {
         this.nombre = nombre;
         this.ocupacion = ocupacion;
         this.descripcion = descripcion;
+        this.urlimagen = urlimagen;
     }
 
     public String getNombre() {
@@ -37,5 +39,13 @@ public class AboutMeDto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 }
