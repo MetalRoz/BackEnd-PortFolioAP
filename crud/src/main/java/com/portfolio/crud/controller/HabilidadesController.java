@@ -26,19 +26,11 @@ public class HabilidadesController {
         return  new ResponseEntity<List<Habilidades>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/listahab/{id}")
+    @GetMapping("/detailhab/{id}")
     public ResponseEntity<Habilidades> getById(@PathVariable("id") int id){
         if (!habilidadesService.existsById(id))
             return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
         Habilidades habilidades = habilidadesService.getOne(id).get();
-        return new ResponseEntity(habilidades, HttpStatus.OK);
-    }
-
-    @GetMapping("/detailhab/{titulo}")
-    public ResponseEntity<Habilidades> getByNombre(@PathVariable("Nombre") String nombre){
-        if (!habilidadesService.existsByNombre(nombre))
-            return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        Habilidades habilidades = habilidadesService.getByNombre(nombre).get();
         return new ResponseEntity(habilidades, HttpStatus.OK);
     }
 

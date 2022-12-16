@@ -26,7 +26,7 @@ public class ProyectosController {
         return  new ResponseEntity<List<Proyectos>>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/listapro/{id}")
+    @GetMapping("/detailpro/{id}")
     public ResponseEntity<Proyectos> getById(@PathVariable("id") int id){
         if (!proyectosService.existsById(id))
             return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
@@ -34,12 +34,12 @@ public class ProyectosController {
         return new ResponseEntity(proyectos, HttpStatus.OK);
     }
 
-    @GetMapping("/detailpro/{titulo}")
+    @GetMapping("/detailtitulopro/{nombre}")
     public ResponseEntity<Proyectos> getByNombre(@PathVariable("Nombre") String nombre){
         if (!proyectosService.existsByNombre(nombre))
             return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);
-        Proyectos habilidades = proyectosService.getByNombre(nombre).get();
-        return new ResponseEntity(habilidades, HttpStatus.OK);
+        Proyectos proyectos = proyectosService.getByNombre(nombre).get();
+        return new ResponseEntity(proyectos, HttpStatus.OK);
     }
 
     @PostMapping("/createpro")
@@ -48,7 +48,9 @@ public class ProyectosController {
             return new ResponseEntity(new Mensaje("La URL de la imagen es obligatorio"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(proyectosDto.getNombre()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-        Proyectos proyectos = new Proyectos(proyectosDto.getUrlimagen(), proyectosDto.getNombre());
+        if (StringUtils.isBlank(proyectosDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("La URL de ver proyecto es obligatoria"), HttpStatus.BAD_REQUEST);
+        Proyectos proyectos = new Proyectos(proyectosDto.getUrlimagen(), proyectosDto.getNombre(), proyectosDto.getUrlproyecto());
         proyectosService.save(proyectos);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -68,7 +70,7 @@ public class ProyectosController {
         return new ResponseEntity(new Mensaje("Se ha actualizado existosamente"), HttpStatus.OK);
     }
 
-    @DeleteMapping("/deletehab/{id}")
+    @DeleteMapping("/deletepro/{id}")
     public ResponseEntity<?> delete(@PathVariable("id")int id){
         if(!proyectosService.existsById(id))
             return new ResponseEntity(new Mensaje("No existe"), HttpStatus.NOT_FOUND);

@@ -13,13 +13,15 @@ public class Proyectos {
     private int id;
     private String urlimagen;
     private String nombre;
+    private String urlproyecto;
 
     public Proyectos() {
     }
 
-    public Proyectos(String urlimagen, String nombre) {
+    public Proyectos(String urlimagen, String nombre, String urlproyecto) {
         this.urlimagen = urlimagen;
         this.nombre = nombre;
+        this.urlproyecto = urlproyecto;
     }
 
     public int getId() {
@@ -44,6 +46,14 @@ public class Proyectos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getUrlproyecto() {
+        return urlproyecto;
+    }
+
+    public void setUrlproyecto(String urlproyecto) {
+        this.urlproyecto = urlproyecto;
     }
 
 }
