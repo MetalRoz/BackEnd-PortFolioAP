@@ -4,14 +4,16 @@ public class HabilidadesDto {
     private String urlimagen;
     private String nombre;
     private String descripcion;
+    private float porcentaje;
 
     public HabilidadesDto() {
     }
 
-    public HabilidadesDto(String urlimagen, String nombre, String descripcion) {
+    public HabilidadesDto(String urlimagen, String nombre, String descripcion, float porcentaje) {
         this.urlimagen = urlimagen;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.porcentaje = porcentaje;
     }
 
     public String getUrlimagen() { return urlimagen; }
@@ -33,5 +35,11 @@ public class HabilidadesDto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public float getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(float porcentaje) { this.porcentaje = porcentaje; }
 }
 

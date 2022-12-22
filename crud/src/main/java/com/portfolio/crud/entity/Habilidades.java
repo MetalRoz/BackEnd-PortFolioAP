@@ -14,14 +14,16 @@ public class Habilidades {
     private String urlimagen;
     private String nombre;
     private String descripcion;
+    private float porcentaje;
 
     public Habilidades() {
     }
 
-    public Habilidades(String urlimagen, String nombre, String descripcion) {
+    public Habilidades(String urlimagen, String nombre, String descripcion, float porcentaje) {
         this.urlimagen = urlimagen;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.porcentaje = porcentaje;
     }
 
     public int getId() {
@@ -54,5 +56,13 @@ public class Habilidades {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public float getPorcentaje() {
+        return porcentaje;
+    }
+
+    public void setPorcentaje(float porcentaje) {
+        this.porcentaje = porcentaje;
     }
 }

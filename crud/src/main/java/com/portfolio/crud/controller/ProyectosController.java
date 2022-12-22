@@ -48,9 +48,11 @@ public class ProyectosController {
             return new ResponseEntity(new Mensaje("La URL de la imagen es obligatorio"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(proyectosDto.getNombre()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(proyectosDto.getDescripcion()))
+            return new ResponseEntity(new Mensaje("La descripcion es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(proyectosDto.getUrlimagen()))
             return new ResponseEntity(new Mensaje("La URL de ver proyecto es obligatoria"), HttpStatus.BAD_REQUEST);
-        Proyectos proyectos = new Proyectos(proyectosDto.getUrlimagen(), proyectosDto.getNombre(), proyectosDto.getUrlproyecto());
+        Proyectos proyectos = new Proyectos(proyectosDto.getUrlimagen(), proyectosDto.getNombre(), proyectosDto.getDescripcion(), proyectosDto.getUrlproyecto());
         proyectosService.save(proyectos);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -62,10 +64,16 @@ public class ProyectosController {
             return new ResponseEntity(new Mensaje("La URL de la imagen es obligatorio"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(proyectosDto.getNombre()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(proyectosDto.getDescripcion()))
+            return new ResponseEntity(new Mensaje("El descripcion es obligatoriA"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(proyectosDto.getUrlproyecto()))
+            return new ResponseEntity(new Mensaje("La URL de ver proyecto es obligatoria"), HttpStatus.BAD_REQUEST);
 
         Proyectos proyectos = proyectosService.getOne(id).get();
         proyectos.setUrlimagen(proyectosDto.getUrlimagen());
         proyectos.setNombre(proyectosDto.getNombre());
+        proyectos.setDescripcion(proyectosDto.getDescripcion());
+        proyectos.setUrlproyecto(proyectosDto.getUrlproyecto());
         proyectosService.save(proyectos);
         return new ResponseEntity(new Mensaje("Se ha actualizado existosamente"), HttpStatus.OK);
     }

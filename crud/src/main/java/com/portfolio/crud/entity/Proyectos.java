@@ -13,14 +13,16 @@ public class Proyectos {
     private int id;
     private String urlimagen;
     private String nombre;
+    private String descripcion;
     private String urlproyecto;
 
     public Proyectos() {
     }
 
-    public Proyectos(String urlimagen, String nombre, String urlproyecto) {
+    public Proyectos(String urlimagen, String nombre, String descripcion, String urlproyecto) {
         this.urlimagen = urlimagen;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.urlproyecto = urlproyecto;
     }
 
@@ -46,6 +48,14 @@ public class Proyectos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getUrlproyecto() {

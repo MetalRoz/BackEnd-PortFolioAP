@@ -42,7 +42,9 @@ public class HabilidadesController {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(habilidadesDto.getDescripcion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
-        Habilidades habilidades = new Habilidades(habilidadesDto.getUrlimagen(), habilidadesDto.getNombre(), habilidadesDto.getDescripcion());
+        if (habilidadesDto.getPorcentaje()==0 || habilidadesDto.getPorcentaje()<0)
+            return new ResponseEntity(new Mensaje("El porcentaje es obligatorio"), HttpStatus.BAD_REQUEST);
+        Habilidades habilidades = new Habilidades(habilidadesDto.getUrlimagen(), habilidadesDto.getNombre(), habilidadesDto.getDescripcion(), habilidadesDto.getPorcentaje());
         habilidadesService.save(habilidades);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -50,17 +52,20 @@ public class HabilidadesController {
 
     @PutMapping("/updatehab/{id}")
     public ResponseEntity<?> update(@PathVariable("id")int id, @RequestBody HabilidadesDto habilidadesDto){
-        if(StringUtils.isBlank(habilidadesDto.getUrlimagen()))
-            return new ResponseEntity(new Mensaje("La URL de la imagen es obligatorio"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(habilidadesDto.getNombre()))
-            return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Mensaje("El Nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(habilidadesDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("La URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(habilidadesDto.getDescripcion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
+        if (habilidadesDto.getPorcentaje()==0 || habilidadesDto.getPorcentaje()<0)
+            return new ResponseEntity(new Mensaje("El porcentaje es obligatorio"), HttpStatus.BAD_REQUEST);
 
         Habilidades habilidades = habilidadesService.getOne(id).get();
-        habilidades.setUrlimagen(habilidadesDto.getUrlimagen());
         habilidades.setNombre(habilidadesDto.getNombre());
-        habilidades.setDescripcion(habilidades.getDescripcion());
+        habilidades.setUrlimagen(habilidadesDto.getUrlimagen());
+        habilidades.setDescripcion(habilidadesDto.getDescripcion());
+        habilidades.setPorcentaje(habilidadesDto.getPorcentaje());
         habilidadesService.save(habilidades);
         return new ResponseEntity(new Mensaje("Se ha actualizado existosamente"), HttpStatus.OK);
     }

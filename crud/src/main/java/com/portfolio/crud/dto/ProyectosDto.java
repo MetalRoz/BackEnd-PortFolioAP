@@ -3,14 +3,16 @@ package com.portfolio.crud.dto;
 public class ProyectosDto {
     private String urlimagen;
     private String nombre;
+    private String descripcion;
     private String urlproyecto;
 
     public ProyectosDto() {
     }
 
-    public ProyectosDto(String urlimagen, String nombre, String urlproyecto) {
+    public ProyectosDto(String urlimagen, String nombre, String descripcion, String urlproyecto) {
         this.urlimagen = urlimagen;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.urlproyecto = urlproyecto;
     }
 
@@ -24,6 +26,12 @@ public class ProyectosDto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDescripcion() { return descripcion; }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getUrlproyecto() { return urlproyecto; }
