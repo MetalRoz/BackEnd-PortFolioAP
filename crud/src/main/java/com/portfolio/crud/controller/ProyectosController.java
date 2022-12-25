@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/proyectos")
-@CrossOrigin(origins = "https://hosting-portfolio-angula-fdb9d.web.app/")
+@CrossOrigin(origins = "https://hosting-portfolio-angula-fdb9d.firebaseapp.com/")
 public class ProyectosController {
 
     @Autowired
