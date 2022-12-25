@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/proyectos")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://hosting-portfolio-angula-fdb9d.web.app/")
 public class ProyectosController {
 
     @Autowired
