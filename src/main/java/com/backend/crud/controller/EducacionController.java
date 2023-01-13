@@ -46,11 +46,13 @@ public class EducacionController {
     public ResponseEntity<?> create(@RequestBody EducacionDto educacionDto){
         if (StringUtils.isBlank(educacionDto.getTitulo()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
+        if (StringUtils.isBlank(educacionDto.getFecha()))
+            return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(educacionDto.getInstitucion()))
             return new ResponseEntity(new Mensaje("La institución es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(educacionDto.getInstitucion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
-        Educacion educacion = new Educacion(educacionDto.getTitulo(), educacionDto.getInstitucion(), educacionDto.getDescripcion());
+        Educacion educacion = new Educacion(educacionDto.getTitulo(), educacionDto.getFecha(), educacionDto.getInstitucion(), educacionDto.getDescripcion());
         educacionService.save(educacion);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -60,6 +62,8 @@ public class EducacionController {
     public ResponseEntity<?> update(@PathVariable("id")int id, @RequestBody EducacionDto educacionDto){
         if(StringUtils.isBlank(educacionDto.getTitulo()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(educacionDto.getFecha()))
+            return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(educacionDto.getInstitucion()))
             return new ResponseEntity(new Mensaje("La institución es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(educacionDto.getDescripcion()))
@@ -67,6 +71,7 @@ public class EducacionController {
 
         Educacion educacion = educacionService.getOne(id).get();
         educacion.setTitulo(educacionDto.getTitulo());
+        educacion.setFecha(educacionDto.getFecha());
         educacion.setInstitucion(educacionDto.getInstitucion());
         educacion.setDescripcion(educacionDto.getDescripcion());
         educacionService.save(educacion);

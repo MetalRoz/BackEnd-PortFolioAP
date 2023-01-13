@@ -44,11 +44,15 @@ public class ExperienciaController {
 
      @PostMapping("/createexp")
     public ResponseEntity<?> create(@RequestBody ExperienciaDto experienciaDto){
+         if (StringUtils.isBlank(experienciaDto.getUrlimagen()))
+             return new ResponseEntity(new Mensaje("La URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(experienciaDto.getTitulo()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
+         if (StringUtils.isBlank(experienciaDto.getFecha()))
+             return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(experienciaDto.getDescripcion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
-        Experiencia experiencia = new Experiencia(experienciaDto.getTitulo(), experienciaDto.getDescripcion());
+        Experiencia experiencia = new Experiencia(experienciaDto.getUrlimagen(), experienciaDto.getTitulo(), experienciaDto.getFecha(), experienciaDto.getDescripcion());
         experienciaService.save(experiencia);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -56,13 +60,19 @@ public class ExperienciaController {
 
     @PutMapping("/updateexp/{id}")
     public ResponseEntity<?> update(@PathVariable("id")int id, @RequestBody ExperienciaDto experienciaDto){
+        if(StringUtils.isBlank(experienciaDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("La URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(experienciaDto.getTitulo()))
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(experienciaDto.getFecha()))
+            return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(experienciaDto.getDescripcion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
 
         Experiencia experiencia = experienciaService.getOne(id).get();
+        experiencia.setUrlimagen(experienciaDto.getUrlimagen());
         experiencia.setTitulo(experienciaDto.getTitulo());
+        experiencia.setFecha(experienciaDto.getFecha());
         experiencia.setDescripcion(experienciaDto.getDescripcion());
         experienciaService.save(experiencia);
         return new ResponseEntity(new Mensaje("Se ha actualizado existosamente"), HttpStatus.OK);
