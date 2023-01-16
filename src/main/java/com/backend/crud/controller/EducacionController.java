@@ -44,6 +44,8 @@ public class EducacionController {
 
     @PostMapping("/createedu")
     public ResponseEntity<?> create(@RequestBody EducacionDto educacionDto){
+        if (StringUtils.isBlank(educacionDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("LA URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(educacionDto.getTitulo()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(educacionDto.getFecha()))
@@ -52,7 +54,7 @@ public class EducacionController {
             return new ResponseEntity(new Mensaje("La institución es obligatoria"), HttpStatus.BAD_REQUEST);
         if (StringUtils.isBlank(educacionDto.getInstitucion()))
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
-        Educacion educacion = new Educacion(educacionDto.getTitulo(), educacionDto.getFecha(), educacionDto.getInstitucion(), educacionDto.getDescripcion());
+        Educacion educacion = new Educacion(educacionDto.getUrlimagen(), educacionDto.getTitulo(), educacionDto.getFecha(), educacionDto.getInstitucion(), educacionDto.getDescripcion());
         educacionService.save(educacion);
         return new ResponseEntity(new Mensaje("Se ha creado exitosamente"), HttpStatus.OK);
 
@@ -60,7 +62,9 @@ public class EducacionController {
 
     @PutMapping("/updateedu/{id}")
     public ResponseEntity<?> update(@PathVariable("id")int id, @RequestBody EducacionDto educacionDto){
-        if(StringUtils.isBlank(educacionDto.getTitulo()))
+        if(StringUtils.isBlank(educacionDto.getUrlimagen()))
+            return new ResponseEntity(new Mensaje("La URL de la imagen es obligatoria"), HttpStatus.BAD_REQUEST);
+        if(StringUtils.isBlank(educacionDto.getUrlimagen()))
             return new ResponseEntity(new Mensaje("El titulo es obligatorio"), HttpStatus.BAD_REQUEST);
         if(StringUtils.isBlank(educacionDto.getFecha()))
             return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);
@@ -70,6 +74,7 @@ public class EducacionController {
             return new ResponseEntity(new Mensaje("La descripción es obligatoria"), HttpStatus.BAD_REQUEST);
 
         Educacion educacion = educacionService.getOne(id).get();
+        educacion.setUrlimagen(educacionDto.getUrlimagen());
         educacion.setTitulo(educacionDto.getTitulo());
         educacion.setFecha(educacionDto.getFecha());
         educacion.setInstitucion(educacionDto.getInstitucion());

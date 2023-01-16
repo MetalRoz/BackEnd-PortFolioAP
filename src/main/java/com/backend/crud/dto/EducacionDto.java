@@ -2,6 +2,7 @@ package com.backend.crud.dto;
 
 public class EducacionDto {
 
+    private String urlimagen;
     private String titulo;
     private String fecha;
     private String institucion;
@@ -10,11 +11,20 @@ public class EducacionDto {
     public EducacionDto() {
     }
 
-    public EducacionDto(String titulo, String fecha, String institucion, String descripcion) {
+    public EducacionDto(String urlimagen, String titulo, String fecha, String institucion, String descripcion) {
+        this.urlimagen = urlimagen;
         this.titulo = titulo;
         this.fecha = fecha;
         this.institucion = institucion;
         this.descripcion = descripcion;
+    }
+
+    public String getUrlimagen() {
+        return urlimagen;
+    }
+
+    public void setUrlimagen(String urlimagen) {
+        this.urlimagen = urlimagen;
     }
 
     public String getTitulo() {
